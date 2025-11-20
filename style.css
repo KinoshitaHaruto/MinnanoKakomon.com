@@ -1,3 +1,4 @@
+/*画面サイズ補正*/
 img {
   max-width: 100%;
   height: auto;
@@ -9,6 +10,75 @@ img {
   margin: auto;
 }
 
+
+/*背景画像（緑）*/
+body {
+  background-color: #7fffd4;    
+}
+
+/*ログインボタン*/
+.login-btn {
+  position: absolute; 
+  top: 18px;          
+  right: 310px;        
+  background-color: #f5deb3;
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.login-btn:hover {
+  background-color: #deb887;
+}
+
+/*説明書ボタン*/
+.howto-btn {
+  position: absolute; 
+  top: 18px;          
+  right: 180px;        
+  background-color: #f5deb3;
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.howto-btn:hover {
+  background-color: #deb887;
+}
+
+/*製作者ボタン*/
+.intro-btn {
+  position: absolute; 
+  top: 18px;          
+  right: 50px;        
+  background-color: #f5deb3;
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.intro-btn:hover {
+  background-color: #deb887;
+}
+
+/*ヘッダー固定*/
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; 
+}
+
+/*レスポンシブ（文字）*/
 body{
     font-size: clamp(14px, 2vw, 20px)
 }
