@@ -1,0 +1,210 @@
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>みんなの過去問ドットコム - 愛知県</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="../img/favicon-16.ico" sizes="16x16" type="image/png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+
+  <style> body { display: none; } </style>
+
+  <style>
+    /* メインエリアの幅調整 */
+    main {
+      width: 90%;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* 検索ボックス */
+    #school-search {
+      width: 100%;
+      max-width: 400px;
+      padding: 12px;
+      font-size: 16px;
+      margin-bottom: 25px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      outline: none;
+    }
+    #school-search:focus {
+      border-color: #20b2aa;
+    }
+
+    /* タブのボタンエリア */
+    .tab-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    /* タブボタン */
+    .tab-btn {
+      padding: 10px 25px;
+      background-color: #eee;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #555;
+      transition: 0.3s;
+      font-size: 1rem;
+    }
+
+    /* 選択中のタブボタン */
+    .tab-btn.active {
+      background-color: #20b2aa; /* テーマカラーの緑 */
+      color: white;
+    }
+
+    /* 学校リストの表示エリア */
+    .tab-content {
+      display: none; /* 最初は隠しておく */
+      text-align: left;
+      background: #fff;
+      padding: 10px 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    /* activeクラスがつくと表示される */
+    .tab-content.active {
+      display: block;
+    }
+
+    /* リストのデザイン */
+    .school-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .school-list li {
+      border-bottom: 1px solid #eee;
+    }
+    .school-list li:last-child {
+      border-bottom: none;
+    }
+    .school-list li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      display: block;
+      padding: 15px 5px;
+      transition: 0.2s;
+    }
+    .school-list li a:hover {
+      color: #20b2aa;
+      background-color: #f9f9f9;
+      padding-left: 10px; /* ホバーで少し右に動く演出 */
+    }
+  </style>
+</head>
+    
+<body>
+  <header class="site-header">
+    <a href="../index.html">
+      <img src="../img/header.png" alt="ヘッダー画像">
+    </a>
+    
+    <div class="header-buttons">
+      <a href="../loginform.html" class="header-btn">ログイン</a>
+      <a href="../howtouse.html" class="header-btn">使い方</a>
+      <a href="../introduction.html" class="header-btn">製作者</a>
+      <button id="btn-logout" class="header-btn" style="background:#ff6b6b; cursor:pointer;">ログアウト</button>
+    </div>
+  </header>    
+
+  <main style="margin-top: 120px; text-align: center;">
+    <h1>愛知県の過去問</h1>
+    
+    <input type="text" id="school-search" placeholder="学校名を検索（例：名古屋）">
+
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="switchTab('univ', this)">大学</button>
+      <button class="tab-btn" onclick="switchTab('middle', this)">中学校</button>
+    </div>
+
+    <div id="univ" class="tab-content active">
+      <ul class="school-list">
+        <li><a href="#">名古屋大学</a></li>
+        <li><a href="#">名古屋工業大学</a></li>
+        <li><a href="#">愛知教育大学</a></li>
+        <li><a href="#">愛知県立大学</a></li>
+        <li><a href="#">南山大学</a></li>
+        <li><a href="#">中京大学</a></li>
+        <li><a href="aichi-univ/meijo.html">名城大学</a></li>
+        <li><a href="#">愛知大学</a></li>
+        <li><a href="#">愛知学院大学</a></li>
+        <li><a href="#">中部大学</a></li>
+      </ul>
+    </div>
+
+    <div id="middle" class="tab-content">
+      <ul class="school-list">
+        <li><a href="#">守山中学校</a></li>
+        <li><a href="#">東海中学校</a></li>
+        <li><a href="#">滝中学校</a></li>
+        <li><a href="#">南山中学校（男子部）</a></li>
+        <li><a href="#">南山中学校（女子部）</a></li>
+        <li><a href="#">愛知淑徳中学校</a></li>
+        <li><a href="#">名古屋中学校</a></li>
+        <li><a href="#">金城学院中学校</a></li>
+        <li><a href="#">椙山女学園中学校</a></li>
+      </ul>
+    </div>
+
+  </main>
+
+  <script type="module" src="../auth.js"></script>
+
+  <script>
+    // 1. タブ切り替え機能
+    function switchTab(tabId, btnElement) {
+      // すべてのコンテンツを隠す
+      document.querySelectorAll('.tab-content').forEach(el => {
+        el.classList.remove('active');
+      });
+      
+      // すべてのボタンの色を元に戻す
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      // 選ばれたコンテンツを表示
+      document.getElementById(tabId).classList.add('active');
+      
+      // 押されたボタンに色をつける
+      btnElement.classList.add('active');
+      
+      // タブを切り替えたら検索ボックスをクリアして、リストを全表示に戻すと親切
+      document.getElementById('school-search').value = '';
+      document.querySelectorAll('.school-list li').forEach(li => li.style.display = '');
+    }
+
+    // 2. 検索機能（文字を入れるたびに実行）
+    document.getElementById('school-search').addEventListener('keyup', function() {
+      const searchText = this.value.toLowerCase(); // 入力された文字（小文字に統一）
+      
+      // 今見えているタブの中のリストを取得
+      const activeTab = document.querySelector('.tab-content.active');
+      const items = activeTab.querySelectorAll('li');
+
+      items.forEach(item => {
+        const schoolName = item.textContent; // 学校名を取得
+        if (schoolName.toLowerCase().includes(searchText)) {
+          item.style.display = ''; // 一致したら表示
+        } else {
+          item.style.display = 'none'; // 一致しなかったら隠す
+        }
+      });
+    });
+  </script>
+  
+</body>
+</html>

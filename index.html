@@ -1,27 +1,115 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>みんなの過去問ドットコム</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="/img/favicon-16.ico" sizes="16x16" type="image/png">
-    <link rel="icon" href="/img/favicon-32.ico" sizes="32x32" type="image/png">
-    <link rel="icon" href="/img/favicon-48.ico" sizes="48x48" type="image/png">
-    <link rel="icon" href="/img/favicon-128.ico" sizes="128x128" type="image/png">
-    <link rel="apple-touch-icon" href="/img/favicon-180.ico" sizes="180x180">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>みんなの過去問ドットコム - トップ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="/img/favicon-16.ico" sizes="16x16" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+
+  <style> body { display: none; } </style>
+
+  <style>
+    /* index.html専用のスタイル */
+    main {
+      margin-top: 100px; 
+      margin-bottom: 50px;
+      width: 95%;       
+      max-width: 800px; 
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
+    #japan-map-image {
+      width: 100%;    
+      height: auto;   
+      display: inline-block;
+      filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+    }
+
+    h1 { margin-bottom: 10px; font-size: 1.5rem; color: #333; }
+    p { margin-bottom: 30px; color: #666; font-size: 0.9rem; }
+  </style>
 </head>
     
 <body>
-<header class="site-header">
+  <header class="site-header">
     <img src="img/header.png" alt="ヘッダー画像">
-    <a href="loginform.html" class="login-btn">ログイン</a>
-    <a href="introduction.html" class="intro-btn">製作者</a>
-    <a href="howtouse.html" class="howto-btn">使い方</a>
-</header>    
+    <div class="header-buttons">
+      <a href="loginform.html" class="header-btn">ログイン</a>
+      <a href="howtouse.html" class="header-btn">使い方</a>
+      <a href="introduction.html" class="header-btn">製作者</a>
+      <button id="btn-logout" class="header-btn" style="background:#ff6b6b; cursor:pointer;">ログアウト</button>
+    </div>
+  </header>    
 
-<h1>みんなの過去問ドットコムへようこそ！</h1>
+  <main>
+    <h1>都道府県を選択してください</h1>
+    <p>地図をクリックすると、各都道府県の過去問ページへ移動します。</p>
+
+    <img src="img/JapanMap.png" alt="日本地図" usemap="#japan-map" id="japan-map-image">
+
+    <map name="japan-map">
+      <area target="" alt="北海道（札幌）" title="北海道（札幌）" href="/prefecture/hokkaidou.html" coords="833,191,625,39" shape="rect">
+      <area target="" alt="青森" title="青森" href="/prefecture/aomori.html" coords="625,217,786,266" shape="rect">
+      <area target="" alt="秋田" title="秋田" href="/prefecture/akita.html" coords="704,327,623,271" shape="rect">
+      <area target="" alt="岩手（盛岡）" title="岩手（盛岡）" href="/prefecture/iwate.html" coords="785,326,707,271" shape="rect">
+      <area target="" alt="山形" title="山形" href="/prefecture/yamagata.html" coords="625,335,624,373,653,375,654,388,701,388,704,334" shape="poly">
+      <area target="" alt="宮城（仙台）" title="宮城（仙台）" href="/prefecture/miyagi.html" coords="707,331,789,387" shape="rect">
+      <area target="" alt="福島" title="福島" href="/prefecture/hukusima.html" coords="657,393,785,451" shape="rect">
+      <area target="" alt="茨城（水戸）" title="茨城（水戸）" href="/prefecture/ibaragi.html" coords="747,455,786,533" shape="rect">
+      <area target="" alt="千葉" title="千葉" href="/prefecture/tiba.html" coords="745,537,787,677" shape="rect">
+      <area target="" alt="栃木（宇都宮）" title="栃木（宇都宮）" href="/prefecture/totigi.html" coords="684,455,745,511" shape="rect">
+      <area target="" alt="群馬（前橋）" title="群馬（前橋）" href="/prefecture/gunma.html" coords="621,455,681,511" shape="rect">
+      <area target="" alt="埼玉（さいたま）" title="埼玉（さいたま）" href="/prefecture/saitama.html" coords="622,519,743,566" shape="rect">
+      <area target="" alt="東京" title="東京" href="/prefecture/tokyo.html" coords="653,569,653,614,717,615,718,598,743,597,742,567" shape="poly">
+      <area target="" alt="神奈川（横浜）" title="神奈川（横浜）" href="/prefecture/kanagawa.html" coords="633,623,633,647,651,649,652,679,717,677,717,621" shape="poly">
+      <area target="" alt="富山" title="富山" href="/prefecture/toyama.html" coords="509,393,571,449" shape="rect">
+      <area target="" alt="新潟" title="新潟" href="/prefecture/niigata.html" coords="573,395,573,448,653,446,651,379,625,377,625,392" shape="poly">
+      <area target="" alt="長野" title="長野" href="/prefecture/nagano.html" coords="551,453,551,615,587,615,589,561,619,562,617,455" shape="poly">
+      <area target="" alt="静岡" title="静岡" href="/prefecture/sizuoka.html" coords="573,622,572,677,651,680,649,657,633,653,630,621,614,621" shape="poly">
+      <area target="" alt="福井" title="福井" href="/prefecture/hukui.html" coords="470,456,487,456,509,456,506,512,431,510,427,474,465,475" shape="poly">
+      <area target="" alt="石川（金沢）" title="石川（金沢）" href="/prefecture/isikawa.html" coords="469,371,508,452" shape="rect">
+      <area target="" alt="岐阜" title="岐阜" href="/prefecture/gifu.html" coords="510,458,549,615" shape="rect">
+      <area target="" alt="山梨（甲府）" title="山梨（甲府）" href="/prefecture/yamanasi.html" coords="591,569,650,617" shape="rect">
+      <area target="" alt="愛知（名古屋）" title="愛知（名古屋）" href="/prefecture/aichi.html" coords="509,623,569,675" shape="rect">
+      <area target="" alt="三重（津）" title="三重（津）" href="/prefecture/mie.html" coords="469,577,508,714" shape="rect">
+      <area target="" alt="滋賀（大津）" title="滋賀（大津）" href="/prefecture/siga.html" coords="469,518,509,574" shape="rect">
+      <area target="" alt="奈良" title="奈良" href="/prefecture/nara.html" coords="425,580,465,670" shape="rect">
+      <area target="" alt="大阪" title="大阪" href="/prefecture/osaka.html" coords="384,579,422,644" shape="rect">
+      <area target="" alt="京都" title="京都" href="/prefecture/kyoto.html" coords="384,474,384,575,466,571,467,520,426,515,425,476" shape="poly">
+      <area target="" alt="和歌山" title="和歌山" href="/prefecture/wakayama.html" coords="385,650,385,713,465,717,463,675,422,675,422,652" shape="poly">
+      <area target="" alt="兵庫（神戸）" title="兵庫（神戸）" href="/prefecture/hyogo.html" coords="343,473,343,594,380,596,380,475" shape="poly">
+      <area target="" alt="鳥取" title="鳥取" href="/prefecture/tottori.html" coords="301,477,340,530" shape="rect">
+      <area target="" alt="岡山" title="岡山" href="/prefecture/okayama.html" coords="301,540,339,595" shape="rect">
+      <area target="" alt="島根（松江）" title="島根（松江）" href="/prefecture/simane.html" coords="258,473,298,535" shape="rect">
+      <area target="" alt="広島" title="広島" href="/prefecture/hirosima.html" coords="259,539,299,593" shape="rect">
+      <area target="" alt="山口" title="山口" href="/prefecture/yamaguti.html" coords="218,478,255,596" shape="rect">
+      <area target="" alt="香川（高松）" title="香川（高松）" href="/prefecture/kagawa.html" coords="291,614,364,664" shape="rect">
+      <area target="" alt="徳島" title="徳島" href="/prefecture/tokusima.html" coords="292,669,362,718" shape="rect">
+      <area target="" alt="愛媛（松山）" title="愛媛（松山）" href="/prefecture/ehime.html" coords="217,619,288,664" shape="rect">
+      <area target="" alt="高知" title="高知" href="/prefecture/kochi.html" coords="217,673,289,716" shape="rect">
+      <area target="" alt="長崎" title="長崎" href="/prefecture/nagasaki.html" coords="10,476,50,562" shape="rect">
+      <area target="" alt="佐賀" title="佐賀" href="/prefecture/saga.html" coords="51,473,91,561" shape="rect">
+      <area target="" alt="大分" title="大分" href="/prefecture/oita.html" coords="158,521,197,585" shape="rect">
+      <area target="" alt="宮崎" title="宮崎" href="/prefecture/miyazaki.html" coords="157,592,197,655" shape="rect">
+      <area target="" alt="鹿児島" title="鹿児島" href="/prefecture/kagosima.html" coords="94,662,196,717" shape="rect">
+      <area target="" alt="熊本" title="熊本" href="/prefecture/kumamoto.html" coords="94,569,153,656" shape="rect">
+      <area target="" alt="那覇" title="那覇" href="/prefecture/naha.html" coords="95,741,134,797" shape="rect">
+      <area target="" alt="福岡" title="福岡" href="/prefecture/hukuoka.html" coords="94,477,93,562,152,564,155,514,195,514,193,476" shape="poly">
+    </map>
+  </main>
+
+  <script type="module" src="auth.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/image-map-resizer/1.0.10/js/imageMapResizer.min.js"></script>
+  <script>
+    imageMapResize();
+  </script>
+  
 </body>
-
-
 </html>

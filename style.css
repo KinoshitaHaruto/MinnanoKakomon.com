@@ -102,11 +102,19 @@ img {
 /* === スマホ対応 === */
 @media (max-width: 600px) {
   .site-header { padding: 0 15px; } 
+  
+  /* スマホでは絶対配置を解除して、自動整列に戻す */
+  .header-buttons {
+    position: static; /* absoluteを解除 */
+    margin-left: auto; /* 右端に寄せる */
+    gap: 8px; 
+    padding-right: 0;
+  }
+
   .header-btn {
     width: auto;      
     padding: 0 10px;  
     font-size: 13px;  
     height: 36px;     
   }
-  .header-buttons { gap: 8px; padding-right: 0; }
 }

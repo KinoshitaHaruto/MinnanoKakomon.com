@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>過去問掲示板</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="img/favicon-16.ico" sizes="16x16" type="image/png">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+
+  <style> body { display: none; } </style>
+
+  <style>
+    /* 掲示板専用スタイル */
+    main {
+      margin-top: 100px;
+      width: 90%;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+    h1 { color: #333; margin-bottom: 10px; }
+    .sub-title { color: #666; margin-bottom: 40px; }
+    
+    /* 掲示板エリア（仮） */
+    .board-area {
+      border: 2px dashed #ccc;
+      padding: 50px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      color: #888;
+    }
+  </style>
+</head>
+    
+<body>
+  <header class="site-header">
+    <a href="index.html"><img src="img/header.png" alt="ヘッダー画像"></a>
+    <div class="header-buttons">
+      <a href="loginform.html" class="header-btn">ログイン</a>
+      <a href="howtouse.html" class="header-btn">使い方</a>
+      <a href="introduction.html" class="header-btn">製作者</a>
+      <button id="btn-logout" class="header-btn" style="background:#ff6b6b; cursor:pointer;">ログアウト</button>
+    </div>
+  </header>    
+
+  <main>
+    <h1 id="page-title">学校名 読み込み中...</h1>
+    <p class="sub-title" id="page-dept">学部・学科 読み込み中...</p>
+
+    <div class="board-area">
+      <p>ここに <span id="board-name"></span> の過去問が表示されます</p>
+      </div>
+
+    <br>
+    <button onclick="history.back()" style="padding:10px 20px; cursor:pointer;">← 戻る</button>
+  </main>
+
+  <script type="module" src="auth.js"></script>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      // 1. URLの「?」以降（パラメータ）を取得する
+      const params = new URLSearchParams(window.location.search);
+      
+      // 2. パラメータから学校名と学部名を取り出す
+      // URLが board.html?school=名城大学&dept=理工学部 の場合
+      const schoolName = params.get('school'); // "名城大学"
+      const deptName = params.get('dept');     // "理工学部" (または学科名)
+
+      // 3. 画面の文字を書き換える
+      if (schoolName && deptName) {
+        document.title = `${schoolName} ${deptName} - 掲示板`; // ブラウザのタブ名
+        document.getElementById('page-title').textContent = schoolName;
+        document.getElementById('page-dept').textContent = deptName;
+        document.getElementById('board-name').textContent = deptName;
+      } else {
+        document.getElementById('page-title').textContent = "エラー";
+        document.getElementById('page-dept').textContent = "情報が指定されていません";
+      }
+    });
+  </script>
+</body>
+</html>

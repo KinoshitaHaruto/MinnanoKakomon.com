@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>名城大学 - 過去問選択</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="icon" href="../../img/favicon-16.ico" sizes="16x16" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <style> body { display: none; } </style>
+
+  <style>
+    main { width: 90%; max-width: 800px; margin: 100px auto 0; text-align: center; }
+    #faculty-search { width: 100%; max-width: 400px; padding: 12px; font-size: 16px; margin-bottom: 30px; border: 2px solid #ddd; border-radius: 8px; outline: none; }
+    #faculty-search:focus { border-color: #20b2aa; }
+    
+    /* リストデザイン */
+    .faculty-list { list-style: none; padding: 0; margin: 0; text-align: left; background: #fff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .faculty-list > li { border-bottom: 1px solid #eee; }
+    .faculty-list > li:last-child { border-bottom: none; }
+
+    /* 単独リンク */
+    .faculty-link { text-decoration: none; color: #333; font-weight: bold; display: block; padding: 15px 20px; transition: 0.2s; position: relative; cursor: pointer; }
+    .faculty-link:hover { color: #20b2aa; background-color: #f9f9f9; padding-left: 25px; }
+    .faculty-link::after { content: '>'; position: absolute; right: 20px; color: #ccc; font-weight: normal; }
+
+    /* アコーディオンボタン */
+    .toggle-btn { text-decoration: none; color: #333; font-weight: bold; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; transition: 0.2s; cursor: pointer; background: #fff; }
+    .toggle-btn:hover { background-color: #f9f9f9; color: #20b2aa; }
+    .toggle-btn::after { content: '+'; font-size: 1.2rem; color: #20b2aa; font-weight: bold; }
+    .toggle-btn.active::after { content: '-'; }
+
+    /* 学科リスト */
+    .dept-list { display: none; list-style: none; padding: 0; background-color: #f0fdfa; border-top: 1px solid #eee; }
+    .dept-list.open { display: block; animation: fadeIn 0.3s ease; }
+    .dept-list li a { display: block; padding: 12px 20px 12px 40px; text-decoration: none; color: #555; font-size: 0.95rem; border-bottom: 1px solid #e6e6e6; transition: 0.2s; }
+    .dept-list li a:hover { color: #20b2aa; background-color: #e0f2f1; }
+    
+    .back-link-container { margin: 40px 0 60px; }
+    .back-link { color: #666; text-decoration: none; border: 1px solid #ccc; padding: 10px 20px; border-radius: 5px; font-size: 0.9rem; }
+    .back-link:hover { background-color: #eee; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+    
+<body>
+  <header class="site-header">
+    <a href="../../index.html"><img src="../../img/header.png" alt="ヘッダー画像"></a>
+    <div class="header-buttons">
+      <a href="../../loginform.html" class="header-btn">ログイン</a>
+      <a href="../../howtouse.html" class="header-btn">使い方</a>
+      <a href="../../introduction.html" class="header-btn">製作者</a>
+      <button id="btn-logout" class="header-btn" style="background:#ff6b6b; cursor:pointer;">ログアウト</button>
+    </div>
+  </header>    
+
+  <main>
+    <h1>名城大学</h1>
+    <p>学部または学科を選択してください。</p>
+    
+    <input type="text" id="faculty-search" placeholder="学部・学科名を検索">
+
+    <ul class="faculty-list" id="faculty-container"></ul>
+
+    <div class="back-link-container">
+      <a href="../aichi.html" class="back-link">← 愛知県一覧に戻る</a>
+    </div>
+  </main>
+
+  <script type="module" src="../../auth.js"></script>
+
+  <script>
+    const universityName = "名城大学";
+    const facultyData = [
+        
+      { 
+        name: "法学部", 
+        type: "accordion", 
+        depts: [
+            "法学科",
+        ]
+      },
+
+      { 
+        name: "経済学部", 
+        type: "accordion", 
+        depts: [
+            "経済学科",
+            "産業社会学科",
+        ]
+      },
+
+      { 
+        name: "経営学部", 
+        type: "accordion", 
+        depts: [
+            "経営学科",
+            "国際経営学科",
+        ]
+      },
+
+      { 
+        name: "人間学部", 
+        type: "accordion", 
+        depts: [
+            "人間学科",
+        ]
+      },
+
+      { 
+        name: "農学部", 
+        type: "accordion", 
+        depts: [
+            "生命資源学科",
+            "応用生物化学科",
+            "生物環境科学科",
+        ]
+      },
+
+      { 
+        name: "都市情報学部", 
+        type: "accordion", 
+        depts: [
+            "都市情報学科",
+        ]
+      },
+
+      { 
+        name: "薬学部", 
+        type: "accordion", 
+        depts: [
+            "薬学科",
+        ]
+      },
+
+      { 
+        name: "外国語学部", 
+        type: "accordion", 
+        depts: [
+            "国際英語専攻",
+            "国際キャリア専攻",
+        ]
+      },
+
+      { 
+        name: "理工学部", 
+        type: "accordion", 
+        depts: [
+          "数学科", 
+          "電気電子工学科", 
+          "材料機能工学科", 
+          "応用化学科", 
+          "機械工学科", 
+          "交通機械工学科", 
+          "メカトロニクス工学科",
+          "社会基盤デザイン工学科",
+          "環境創造工学科",
+          "建築学科"
+        ]
+      },
+
+    　{ 
+        name: "情報工学部", 
+        type: "accordion", 
+        depts: [
+            "情報工学科",
+        ]
+      },
+    ];
+
+    /*自動生成*/   
+    const container = document.getElementById('faculty-container');
+
+    facultyData.forEach((item, index) => {
+      const li = document.createElement('li');
+
+      if (item.type === 'link') {
+        // 単独リンクを作る
+        // リンク先は ../../board.html?school=名城大学&dept=法学部 のようになります
+        li.innerHTML = `<a href="../../board.html?school=${universityName}&dept=${item.name}" class="faculty-link">${item.name}</a>`;
+      
+      } else if (item.type === 'accordion') {
+        // アコーディオンを作る
+        const deptListId = `dept-list-${index}`; // ユニークなIDを生成
+        
+        // 学科リストのHTMLを作る
+        let deptsHtml = '';
+        item.depts.forEach(dept => {
+          deptsHtml += `<li><a href="../../board.html?school=${universityName}&dept=${item.name} ${dept}">${dept}</a></li>`;
+        });
+
+        li.innerHTML = `
+          <div class="toggle-btn" onclick="toggleDept(this, '${deptListId}')">${item.name}</div>
+          <ul id="${deptListId}" class="dept-list">
+            ${deptsHtml}
+          </ul>
+        `;
+      }
+      container.appendChild(li);
+    });
+
+    // アコーディオン開閉機能
+    function toggleDept(btn, targetId) {
+      btn.classList.toggle('active');
+      document.getElementById(targetId).classList.toggle('open');
+    }
+    // グローバルスコープに登録（HTMLからonclickで呼ぶため）
+    window.toggleDept = toggleDept;
+
+    // 検索機能
+    document.getElementById('faculty-search').addEventListener('keyup', function() {
+      const searchText = this.value.toLowerCase();
+      const items = document.querySelectorAll('.faculty-list > li');
+
+      items.forEach(item => {
+        const text = item.textContent;
+        if (text.toLowerCase().includes(searchText)) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
