@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>過去問掲示板</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="img/favicon-16.ico" sizes="16x16" type="image/png">
   
@@ -14,25 +15,112 @@
   <style> body { display: none; } </style>
 
   <style>
-    /* 掲示板専用スタイル */
+    /* === 全体設定（緑色の背景） === */
+    body {
+      background-color: #7fffd4; /* 共通の緑色 */
+      min-height: 100vh;
+      padding-bottom: 80px; /* 入力欄のスペース確保 */
+    }
+
+    /* === メインの白いカード === */
     main {
-      margin-top: 100px;
       width: 90%;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
+      max-width: 600px; /* 詳細ページと幅を合わせる */
+      margin: 120px auto 150px; /* ヘッダーと入力欄の隙間 */
+      background: rgba(255, 255, 255, 0.95); /* 半透明の白 */
+      padding: 40px 30px;
+      border-radius: 20px; /* 角を丸く */
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* ふんわりした影 */
       text-align: center;
     }
-    h1 { color: #333; margin-bottom: 10px; }
-    .sub-title { color: #666; margin-bottom: 40px; }
-    
-    /* 掲示板エリア（仮） */
-    .board-area {
-      border: 2px dashed #ccc;
-      padding: 50px;
-      background: #f9f9f9;
-      border-radius: 10px;
-      color: #888;
+
+    h1 { margin: 0 0 10px 0; color: #20b2aa; font-size: 1.8rem; letter-spacing: 0.05em; }
+    .sub-title { margin: 0 0 30px 0; color: #888; font-size: 1rem; font-weight: normal; }
+
+    /* === 投稿エリア === */
+    #posts-container {
+      text-align: left;
+      padding-bottom: 10px;
+    }
+
+    /* === 投稿カードのデザイン === */
+    .post-card {
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 12px;
+      /* 白いカードの上に乗るので、境界線を見やすく */
+      border: 1px solid #e0e0e0; 
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    }
+    .post-meta {
+      font-size: 0.75rem;
+      color: #999;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #f0f0f0;
+      padding-bottom: 5px;
+    }
+    .post-name { font-weight: bold; color: #555; }
+    .post-text { font-size: 0.95rem; line-height: 1.6; color: #333; white-space: pre-wrap; }
+
+    /* === 入力エリア（画面下に固定） === */
+    .input-area {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: rgba(255, 255, 255, 0.95); /* 背景になじむ半透明 */
+      padding: 15px; border-top: 1px solid #ddd;
+      display: flex; gap: 10px; justify-content: center;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 1000;
+    }
+    #msg-input {
+      flex: 1; max-width: 600px; padding: 12px;
+      border: 1px solid #ccc; border-radius: 25px; outline: none; font-size: 16px;
+    }
+    #msg-input:focus { border-color: #20b2aa; }
+    #send-btn {
+      background: #20b2aa; color: white; border: none; padding: 0 25px;
+      border-radius: 25px; font-weight: bold; cursor: pointer; transition: 0.3s; white-space: nowrap;
+    }
+    #send-btn:hover { background: #178a84; }
+    #send-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+    /* === 戻るボタン（デザイン統一） === */
+    .back-btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 40px;
+      background: #fff;
+      color: #666;
+      border: 2px solid #ddd;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .back-btn:hover { background: #666; color: #fff; border-color: #666; }
+
+    /* === ヘッダーのレスポンシブ対応 === */
+    .site-header {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: #fff; height: 80px; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .site-header img { height: auto; max-height: 50px; width: auto; display: block; }
+    .header-buttons { display: flex; gap: 15px; }
+    .header-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      background-color: #f5deb3; color: #fff; width: 90px; height: 44px;
+      font-size: 15px; font-weight: bold; border-radius: 6px; text-decoration: none; border:none;
+    }
+    @media (max-width: 768px) {
+      .site-header { height: auto; padding: 10px 0; flex-direction: column; }
+      .site-header img { margin-bottom: 10px; max-width: 80%; }
+      .header-buttons { width: 100%; justify-content: center; flex-wrap: wrap; gap: 8px; }
+      .header-btn { width: auto; padding: 0 12px; font-size: 13px; height: 38px; }
+      main { margin-top: 140px; }
     }
   </style>
 </head>
@@ -41,48 +129,151 @@
   <header class="site-header">
     <a href="index.html"><img src="img/header.png" alt="ヘッダー画像"></a>
     <div class="header-buttons">
-      <a href="loginform.html" class="header-btn">ログイン</a>
       <a href="howtouse.html" class="header-btn">使い方</a>
       <a href="introduction.html" class="header-btn">製作者</a>
       <button id="btn-logout" class="header-btn" style="background:#ff6b6b; cursor:pointer;">ログアウト</button>
     </div>
-  </header>    
+  </header>     
 
   <main>
     <h1 id="page-title">学校名 読み込み中...</h1>
-    <p class="sub-title" id="page-dept">学部・学科 読み込み中...</p>
+    <p class="sub-title" id="page-dept">読み込み中...</p>
 
-    <div class="board-area">
-      <p>ここに <span id="board-name"></span> の過去問が表示されます</p>
-      </div>
+    <div id="posts-container">
+      <p style="text-align:center; color:#aaa; margin-top:50px;">読み込み中...</p>
+    </div>
 
-    <br>
-    <button onclick="history.back()" style="padding:10px 20px; cursor:pointer;">← 戻る</button>
+    <button onclick="history.back()" class="back-btn">戻る</button>
   </main>
+
+  <div class="input-area">
+    <input type="text" id="msg-input" placeholder="質問や情報を入力..." disabled>
+    <button id="send-btn" disabled>送信</button>
+  </div>
 
   <script type="module" src="auth.js"></script>
 
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      // 1. URLの「?」以降（パラメータ）を取得する
-      const params = new URLSearchParams(window.location.search);
-      
-      // 2. パラメータから学校名と学部名を取り出す
-      // URLが board.html?school=名城大学&dept=理工学部 の場合
-      const schoolName = params.get('school'); // "名城大学"
-      const deptName = params.get('dept');     // "理工学部" (または学科名)
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+    import { 
+      getFirestore, collection, addDoc, query, where, orderBy, onSnapshot, serverTimestamp, limitToLast 
+    } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
-      // 3. 画面の文字を書き換える
-      if (schoolName && deptName) {
-        document.title = `${schoolName} ${deptName} - 掲示板`; // ブラウザのタブ名
-        document.getElementById('page-title').textContent = schoolName;
-        document.getElementById('page-dept').textContent = deptName;
-        document.getElementById('board-name').textContent = deptName;
+    /* ======================================================
+       ★重要：ここにあなたのFirebase Configを貼り付けてください
+       ====================================================== */
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4ViHcFj-9334N1OGQR1v3dYN1RhWfzpg",
+      authDomain: "minnanokakomon-c2b7f.firebaseapp.com",
+      projectId: "minnanokakomon-c2b7f",
+      storageBucket: "minnanokakomon-c2b7f.firebasestorage.app",
+      messagingSenderId: "387571811654",
+      appId: "1:387571811654:web:688b0c4203d07f4ae61147",
+      measurementId: "G-3XFHGSE7FN"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const params = new URLSearchParams(window.location.search);
+    const schoolId = params.get('school'); 
+    const schoolName = params.get('sname') || schoolId; 
+    const deptName = params.get('dept');
+
+    if (schoolName && deptName) {
+      document.title = `${schoolName} ${deptName} - 掲示板`;
+      document.getElementById('page-title').textContent = schoolName;
+      document.getElementById('page-dept').textContent = deptName + " 掲示板";
+    } else {
+      document.getElementById('page-title').textContent = "エラー";
+      document.getElementById('page-dept').textContent = "URLが正しくありません";
+    }
+
+    let currentUser = null;
+    const inputField = document.getElementById('msg-input');
+    const sendBtn = document.getElementById('send-btn');
+
+    onAuthStateChanged(auth, (user) => {
+      currentUser = user;
+      if (user) {
+        inputField.disabled = false;
+        sendBtn.disabled = false;
+        inputField.placeholder = "質問や情報を入力...";
       } else {
-        document.getElementById('page-title').textContent = "エラー";
-        document.getElementById('page-dept').textContent = "情報が指定されていません";
+        inputField.disabled = true;
+        sendBtn.disabled = true;
+        inputField.placeholder = "書き込みにはログインが必要です";
       }
     });
+
+    const container = document.getElementById('posts-container');
+    const q = query(
+      collection(db, "posts"),
+      where("schoolId", "==", schoolId),
+      where("deptName", "==", deptName),
+      orderBy("createdAt", "asc"),
+      limitToLast(50)
+    );
+
+    onSnapshot(q, (snapshot) => {
+      container.innerHTML = ""; 
+      if (snapshot.empty) {
+        container.innerHTML = '<p style="text-align:center; color:#aaa; margin-top:30px;">まだ投稿はありません。<br>最初の書き込みをしてみましょう！</p>';
+        return;
+      }
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        let dateStr = "日付不明";
+        if (data.createdAt) {
+          const d = data.createdAt.toDate();
+          dateStr = `${d.getMonth() + 1}/${d.getDate()} ${d.getHours()}:${d.getMinutes().toString().padStart(2, '0')}`;
+        }
+        const card = document.createElement('div');
+        card.className = 'post-card';
+        card.innerHTML = `
+          <div class="post-meta">
+            <span class="post-name">${data.userName || "名無し"}</span>
+            <span>${dateStr}</span>
+          </div>
+          <div class="post-text">${escapeHtml(data.text)}</div>
+        `;
+        container.appendChild(card);
+      });
+      window.scrollTo(0, document.body.scrollHeight);
+    }, (error) => {
+      console.error("読み込みエラー:", error);
+      alert("データが読み込めません。\n原因: " + error.message);
+    });
+
+    sendBtn.addEventListener('click', async () => {
+      const text = inputField.value.trim();
+      if (!text || !currentUser || !schoolId || !deptName) return;
+      try {
+        await addDoc(collection(db, "posts"), {
+          schoolId: schoolId,
+          deptName: deptName,
+          text: text,
+          userId: currentUser.uid,
+          userName: currentUser.displayName || "ゲストユーザー",
+          createdAt: serverTimestamp()
+        });
+        inputField.value = "";
+      } catch (error) {
+        console.error("書き込みエラー:", error);
+        alert("書き込みに失敗しました。");
+      }
+    });
+
+    inputField.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendBtn.click();
+    });
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+    }
   </script>
 </body>
 </html>

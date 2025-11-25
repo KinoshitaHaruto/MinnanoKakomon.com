@@ -15,123 +15,48 @@
   <style> body { display: none; } </style>
 
   <style>
-    body {
-      background-color: #7fffd4; 
-      min-height: 100vh;
-    }
-
-    /* メインコンテンツのカード設定 */
+    body { background-color: #7fffd4; min-height: 100vh; }
     .container {
-      width: 90%;
-      max-width: 600px;
-      margin: 120px auto 150px; 
-      background: rgba(255, 255, 255, 0.9); 
-      padding: 40px 30px;
-      border-radius: 20px; 
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+      width: 90%; max-width: 600px; margin: 120px auto 150px;
+      background: rgba(255, 255, 255, 0.9); padding: 40px 30px;
+      border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
       text-align: center;
     }
-
-    /* 大学名 */
-    h1 { 
-      margin: 0 0 10px 0;
-      color: #20b2aa; 
-      font-size: 1.8rem;
-      letter-spacing: 0.05em;
-    }
-    
-    /* サブタイトル */
-    h2 { 
-      margin: 0 0 30px 0; 
-      color: #888; 
-      font-size: 1rem; 
-      font-weight: normal;
-    }
-    
-    /* リスト全体 */
+    h1 { margin: 0 0 10px 0; color: #20b2aa; font-size: 1.8rem; letter-spacing: 0.05em; }
+    h2 { margin: 0 0 30px 0; color: #888; font-size: 1rem; font-weight: normal; }
     .list-group { list-style: none; padding: 0; margin: 0; }
     .list-group li { margin-bottom: 15px; }
-    
-    /* リストのリンクボタン */
     .list-group a {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 25px;
-      background: #fff;
-      border-radius: 12px;
-      text-decoration: none;
-      color: #333;
-      font-weight: bold;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      border: 1px solid #eee;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 25px; background: #fff; border-radius: 12px;
+      text-decoration: none; color: #333; font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid #eee;
+      transition: all 0.3s ease; position: relative; overflow: hidden;
     }
-
-    /* 左側のアクセントバー */
     .list-group a::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 6px;
-      background: #20b2aa;
-      opacity: 0.5;
-      transition: 0.3s;
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 6px; background: #20b2aa; opacity: 0.5; transition: 0.3s;
     }
-
-    /* ホバー時の動き */
     .list-group a:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(32, 178, 170, 0.2);
+      transform: translateY(-3px); box-shadow: 0 8px 20px rgba(32, 178, 170, 0.2);
       border-color: #20b2aa;
     }
-    .list-group a:hover::before {
-      opacity: 1;
-      width: 10px;
-    }
-
-    /* 矢印アイコン */
-    .arrow-icon {
-      color: #ccc;
-      font-size: 1.2rem;
-      transition: 0.3s;
-    }
-    .list-group a:hover .arrow-icon {
-      color: #20b2aa;
-      transform: translateX(5px);
-    }
-
-    /* 戻るボタン */
+    .list-group a:hover::before { opacity: 1; width: 10px; }
+    .arrow-icon { color: #ccc; font-size: 1.2rem; transition: 0.3s; }
+    .list-group a:hover .arrow-icon { color: #20b2aa; transform: translateX(5px); }
     .back-btn {
-      display: inline-block;
-      margin-top: 30px;
-      padding: 12px 40px;
-      background: #fff;
-      color: #666;
-      border: 2px solid #ddd;
-      text-decoration: none;
-      border-radius: 50px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
+      display: inline-block; margin-top: 30px; padding: 12px 40px;
+      background: #fff; color: #666; border: 2px solid #ddd;
+      text-decoration: none; border-radius: 50px; font-weight: bold;
+      cursor: pointer; transition: 0.3s;
     }
-
-    .back-btn:hover { 
-      background: #666;
-      color: #fff;
-      border-color: #666;
-    }
+    .back-btn:hover { background: #666; color: #fff; border-color: #666; }
   </style>
 </head>
 
 <body>
   <header class="site-header">
-    <a href="../index.html">
-      <img src="../img/header.png" alt="ヘッダー画像">
-    </a>
-    
+    <a href="../index.html"><img src="../img/header.png" alt="ヘッダー画像"></a>
     <div class="header-buttons">
       <a href="../loginform.html" class="header-btn">ログイン</a>
       <a href="../howtouse.html" class="header-btn">使い方</a>
@@ -143,8 +68,7 @@
   <div class="container">
     <h1 id="main-title">読み込み中...</h1>
     <h2 id="sub-title"></h2>
-    <ul id="content-list" class="list-group">
-    </ul>
+    <ul id="content-list" class="list-group"></ul>
     <button onclick="goBack()" class="back-btn">戻る</button>
   </div>
 
@@ -227,7 +151,8 @@ const univData = {
           { name: "都市情報学部", depts: ["都市情報学科"] },
           { name: "理工学部", depts: ["数学科", "情報工学科", "電気電子工学科", "材料機能工学科", "応用化学科", "機械工学科", "交通機械工学科", "建築学科", "環境創造学科"] },
           { name: "農学部", depts: ["生物資源学科", "応用生物化学科", "生物環境科学科"] },
-          { name: "薬学部", depts: ["薬学科"] }
+          { name: "薬学部", depts: ["薬学科"] },
+          { name: "情報工学部",depts:["情報工学科"]}
         ]
       },
       "aichi": {
@@ -1023,7 +948,9 @@ const univData = {
       "414": { name: "蒲郡市立西浦中", faculties: [{ name: "国語"},{ name: "数学"},{ name: "理科"},{ name: "社会"},{ name: "英語"},{ name: "音楽"},{ name: "美術"},{ name: "技術家庭科"},{ name: "保健体育"},] }
     };
 
-/*画面表示ロジック*/
+    /* ====================================================
+       画面表示ロジック
+       ==================================================== */
     const params = new URLSearchParams(window.location.search);
     const univId = params.get('id');
     const facIndex = params.get('f_idx');
@@ -1035,19 +962,23 @@ const univData = {
     if (univData[univId]) {
       const data = univData[univId];
       titleEl.textContent = data.name;
+      document.title = data.name + " - 選択"; 
 
-      // 学科選択画面 
+      // --- A. 学科選択画面 ---
       if (facIndex !== null) {
         const faculty = data.faculties[facIndex];
         if (faculty) {
           subTitleEl.textContent = faculty.name + " / 学科を選択";
           
           if(faculty.depts.length === 0){
-             listEl.innerHTML = "<li>データ準備中です...</li>";
+             listEl.innerHTML = "<li><a href='#'>データ準備中です...</a></li>";
           } else {
+            // 学科リストを生成
             faculty.depts.forEach(deptName => {
               const li = document.createElement('li');
-              li.innerHTML = `<a href="#">
+              
+              // board.html へ飛ぶリンク
+              li.innerHTML = `<a href="../board.html?school=${univId}&dept=${deptName}&sname=${data.name}">
                                 <span>${deptName}</span>
                                 <span class="arrow-icon">›</span>
                               </a>`;
@@ -1055,12 +986,13 @@ const univData = {
             });
           }
         }
-
-      // 学部選択画面
-      } else {
+      } 
+      // --- B. 学部選択画面 ---
+      else {
         subTitleEl.textContent = "学部を選択してください";
         data.faculties.forEach((faculty, index) => {
           const li = document.createElement('li');
+          // 自分自身を再読み込みして学部の中に入る
           li.innerHTML = `<a href="aichi-detail.html?id=${univId}&f_idx=${index}">
                             <span>${faculty.name}</span>
                             <span class="arrow-icon">›</span>
@@ -1068,13 +1000,17 @@ const univData = {
           listEl.appendChild(li);
         });
       }
-
     } else {
       titleEl.textContent = "データが見つかりません";
+      listEl.innerHTML = `<li><a href="../prefecture/aichi.html" style="justify-content:center;">一覧に戻る</a></li>`;
     }
 
     function goBack() {
-      window.history.back();
+      if(window.history.length > 1){
+         window.history.back();
+      } else {
+         window.location.href = '../prefecture/aichi.html';
+      }
     }
   </script>
 </body>
