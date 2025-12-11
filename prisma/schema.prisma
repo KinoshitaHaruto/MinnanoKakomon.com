@@ -1,0 +1,86 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite" // PostgreSQL for production
+  url      = env("DATABASE_URL")
+}
+
+model University {
+  id        String    @id @default(cuid())
+  name      String
+  domain    String?   // 例: nagoya-u.ac.jp
+  faculties Faculty[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Faculty {
+  id          String       @id @default(cuid())
+  name        String
+  universityId String
+  university  University   @relation(fields: [universityId], references: [id], onDelete: Cascade)
+  departments Department[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Department {
+  id        String    @id @default(cuid())
+  name      String
+  facultyId String
+  faculty   Faculty   @relation(fields: [facultyId], references: [id], onDelete: Cascade)
+  courses   Course[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Course {
+  id          String     @id @default(cuid())
+  name        String
+  professor   String?
+  rakutanScore Float?    // 楽単度スコア（0.0-5.0など）
+  departmentId String
+  department  Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  posts      Post[]
+  resources  Resource[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+enum PostType {
+  REVIEW      // レビュー
+  EXAM_LOG    // 試験ログ
+  QUESTION    // 質問
+}
+
+model Post {
+  id        String    @id @default(cuid())
+  content   String
+  type      PostType
+  courseId  String
+  course    Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+enum ResourceType {
+  NOTE      // ノート
+  PAST_EXAM // 過去問
+}
+
+model Resource {
+  id        String        @id @default(cuid())
+  title     String
+  url       String
+  type      ResourceType
+  courseId  String
+  course    Course        @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
