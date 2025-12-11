@@ -1,31 +1,11 @@
-// Mock data for development
-export interface University {
-  id: string;
-  name: string;
-  domain?: string;
-}
+import type {
+  Course,
+  Department,
+  Faculty,
+  Resource,
+  University,
+} from "@/types";
 
-export interface Faculty {
-  id: string;
-  name: string;
-  universityId: string;
-}
-
-export interface Department {
-  id: string;
-  name: string;
-  facultyId: string;
-}
-
-export interface Course {
-  id: string;
-  name: string;
-  professor?: string;
-  rakutanScore?: number;
-  departmentId: string;
-}
-
-// Mock Universities
 export const mockUniversities: University[] = [
   { id: "1", name: "名古屋大学", domain: "nagoya-u.ac.jp" },
   { id: "2", name: "東京大学", domain: "u-tokyo.ac.jp" },
@@ -34,7 +14,6 @@ export const mockUniversities: University[] = [
   { id: "5", name: "早稲田大学", domain: "waseda.jp" },
 ];
 
-// Mock Faculties
 export const mockFaculties: Faculty[] = [
   { id: "1", name: "工学部", universityId: "1" },
   { id: "2", name: "情報学部", universityId: "1" },
@@ -43,7 +22,6 @@ export const mockFaculties: Faculty[] = [
   { id: "5", name: "経済学部", universityId: "1" },
 ];
 
-// Mock Departments
 export const mockDepartments: Department[] = [
   { id: "1", name: "情報工学科", facultyId: "2" },
   { id: "2", name: "機械工学科", facultyId: "1" },
@@ -52,7 +30,6 @@ export const mockDepartments: Department[] = [
   { id: "5", name: "物理学科", facultyId: "3" },
 ];
 
-// Mock Courses
 export const mockCourses: Course[] = [
   {
     id: "1",
@@ -91,34 +68,5 @@ export const mockCourses: Course[] = [
   },
 ];
 
-// Helper functions
-export function getUniversityById(id: string): University | undefined {
-  return mockUniversities.find((u) => u.id === id);
-}
-
-export function getFacultiesByUniversityId(universityId: string): Faculty[] {
-  return mockFaculties.filter((f) => f.universityId === universityId);
-}
-
-export function getDepartmentsByFacultyId(facultyId: string): Department[] {
-  return mockDepartments.filter((d) => d.facultyId === facultyId);
-}
-
-export function getCoursesByDepartmentId(departmentId: string): Course[] {
-  return mockCourses.filter((c) => c.departmentId === departmentId);
-}
-
-export function getCourseById(courseId: string): Course | undefined {
-  return mockCourses.find((c) => c.id === courseId);
-}
-
-export function searchUniversities(query: string): University[] {
-  if (!query) return [];
-  const lowerQuery = query.toLowerCase();
-  return mockUniversities.filter(
-    (u) =>
-      u.name.toLowerCase().includes(lowerQuery) ||
-      u.domain?.toLowerCase().includes(lowerQuery)
-  );
-}
+export const mockResources: Resource[] = [];
 
