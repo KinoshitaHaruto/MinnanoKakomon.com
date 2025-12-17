@@ -1,14 +1,17 @@
-import { mockUniversities } from "./mock-data";
-import type { University } from "@/types";
+
+import { prisma } from "@/lib/prisma";
+import type { University } from "@prisma/client";
 
 export async function listUniversities(): Promise<University[]> {
-  return mockUniversities;
+  return prisma.university.findMany();
 }
 
 export async function getUniversityById(
   universityId: string
-): Promise<University | undefined> {
-  return mockUniversities.find((u) => u.id === universityId);
+): Promise<University | null> {
+  return prisma.university.findUnique({
+    where: { id: universityId },
+  });
 }
 
 export async function searchUniversities(
@@ -16,10 +19,12 @@ export async function searchUniversities(
 ): Promise<University[]> {
   if (!query) return [];
   const lowerQuery = query.toLowerCase();
-  return mockUniversities.filter(
-    (u) =>
-      u.name.toLowerCase().includes(lowerQuery) ||
-      u.domain?.toLowerCase().includes(lowerQuery)
-  );
+  return prisma.university.findMany({
+    where: {
+      OR: [
+        { name: { contains: lowerQuery } },
+        { domain: { contains: lowerQuery } },
+      ],
+    },
+  });
 }
-

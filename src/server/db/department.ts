@@ -1,15 +1,19 @@
-import { mockDepartments } from "./mock-data";
-import type { Department } from "@/types";
+
+import { prisma } from "@/lib/prisma";
+import type { Department } from "@prisma/client";
 
 export async function listDepartmentsByFacultyId(
   facultyId: string
 ): Promise<Department[]> {
-  return mockDepartments.filter((department) => department.facultyId === facultyId);
+  return prisma.department.findMany({
+    where: { facultyId },
+  });
 }
 
 export async function getDepartmentById(
   departmentId: string
-): Promise<Department | undefined> {
-  return mockDepartments.find((department) => department.id === departmentId);
+): Promise<Department | null> {
+  return prisma.department.findUnique({
+    where: { id: departmentId },
+  });
 }
-
