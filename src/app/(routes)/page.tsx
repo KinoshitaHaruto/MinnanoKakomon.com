@@ -1,4 +1,4 @@
-import { UniversitySearch } from "@/components/features/university/UniversitySearch";
+import { UniversitySearch } from "@/components/features/search/UniversitySearch";
 
 export default function HomePage() {
   return (
@@ -11,7 +11,7 @@ export default function HomePage() {
           <p className="text-gray-600 mb-12 text-center">
             その試験、AIと先輩が攻略済み。
           </p>
-          <div className="mt-8">
+          <div className="mt-8 w-full">
             <UniversitySearch />
           </div>
         </div>
