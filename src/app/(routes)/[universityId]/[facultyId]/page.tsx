@@ -1,23 +1,21 @@
 import Link from "next/link";
-import { CourseGrid } from "@/components/features/course/CourseGrid";
+import { DepartmentGrid } from "@/components/features/department/DepartmentGrid";
 import { getUniversityById } from "@/server/db/university";
-import { getFacultyById } from "@/server/db/faculty";
-import { getDepartmentById } from "@/server/db/department";
-import { listCoursesByDepartmentId } from "@/server/db/course";
+import { getFacultyById, listFacultiesByUniversityId } from "@/server/db/faculty";
+import { listDepartmentsByFacultyId } from "@/server/db/department";
 
-interface DepartmentPageProps {
-  params: Promise<{ univId: string; facultyId: string; deptId: string }>;
+interface FacultyPageProps {
+  params: Promise<{ universityId: string; facultyId: string }>;
 }
 
-export default async function DepartmentPage({ params }: DepartmentPageProps) {
-  const { univId, facultyId, deptId } = await params;
+export default async function FacultyPage({ params }: FacultyPageProps) {
+  const { universityId, facultyId } = await params;
 
-  const university = await getUniversityById(univId);
+  const university = await getUniversityById(universityId);
   const faculty = await getFacultyById(facultyId);
-  const department = await getDepartmentById(deptId);
-  const courses = await listCoursesByDepartmentId(deptId);
+  const departments = await listDepartmentsByFacultyId(facultyId);
 
-  if (!university || !faculty || !department) {
+  if (!university || !faculty) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
@@ -42,22 +40,22 @@ export default async function DepartmentPage({ params }: DepartmentPageProps) {
             <Link href={`/${university.id}`} className="hover:text-gray-900">
               {university.name}
             </Link>
-            <span>/</span>
-            <Link href={`/${university.id}/${faculty.id}`} className="hover:text-gray-900">
-              {faculty.name}
-            </Link>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">{department.name}</h1>
-          <p className="text-gray-600">
-            {university.name} / {faculty.name}
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">{faculty.name}</h1>
+          <p className="text-gray-600">{university.name}</p>
         </div>
 
-        <CourseGrid courses={courses} />
+        <div className="mb-6">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">学科一覧</h2>
+          <DepartmentGrid
+            departments={departments}
+            baseHref={`/${university.id}/${faculty.id}`}
+          />
+        </div>
 
         <div className="mt-8">
           <button className="flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
-            新しい講義を登録
+            学科を追加
           </button>
         </div>
       </main>

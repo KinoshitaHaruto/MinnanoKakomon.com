@@ -43,18 +43,18 @@
 ```
 .
 ├── prisma/
-│   ├── data/             # CSV Seed Data
-│   ├── schema.prisma     # Database Schema
-│   └── seed.ts           # Seeding Script
+│   ├── data/             # 初期データ (CSV形式)
+│   ├── schema.prisma     # データベーススキーマ定義
+│   └── seed.ts           # シード実行スクリプト
 ├── src/
-│   ├── app/              # Next.js App Router Pages
-│   ├── components/       # UI Components
-│   │   ├── auth/         # Auth Components (SignIn, Avatar)
-│   │   └── features/     # Feature-based Components
-│   ├── lib/              # Shared Utilities (prisma client)
-│   ├── server/           # Server-side Logic
+│   ├── app/              # Next.js App Router (ページ)
+│   ├── components/       # UIコンポーネント
+│   │   ├── auth/         # 認証関連 (ログインボタン等)
+│   │   └── features/     # 機能別コンポーネント
+│   ├── lib/              # 共有ユーティリティ (Prismaクライアント等)
+│   ├── server/           # サーバーサイドロジック
 │   │   ├── actions/      # Server Actions
-│   │   └── db/           # Data Access Layer
-│   └── types/            # TypeScript Definitions
+│   │   └── db/           # データアクセス層
+│   └── types/            # TypeScript型定義
 └── ...
 ```
