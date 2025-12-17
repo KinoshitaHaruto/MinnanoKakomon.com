@@ -13,7 +13,7 @@ datasource db {
 model University {
   id        String    @id @default(cuid())
   name      String
-  domain    String?   // 例: nagoya-u.ac.jp
+  // domain    String?   // Removed
   prefecture String?  // 例: Aichi
   faculties Faculty[]
   createdAt DateTime  @default(now())

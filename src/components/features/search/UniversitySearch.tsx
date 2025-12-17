@@ -39,8 +39,7 @@ export function UniversitySearch() {
         if (query) {
             const lowerQ = query.toLowerCase();
             filtered = filtered.filter(u =>
-                u.name.toLowerCase().includes(lowerQ) ||
-                u.domain?.toLowerCase().includes(lowerQ)
+                u.name.toLowerCase().includes(lowerQ)
             );
         }
 
@@ -129,9 +128,7 @@ export function UniversitySearch() {
                                 <div>
                                     <div className="font-bold text-gray-900 group-hover:text-blue-700 text-lg transition-colors">{university.name}</div>
                                     <div className="flex gap-2 mt-1">
-                                        {university.domain && (
-                                            <span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded">{university.domain}</span>
-                                        )}
+                                        {/* Domain display removed */}
                                     </div>
                                 </div>
                                 {university.prefecture && (

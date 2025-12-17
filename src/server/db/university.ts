@@ -23,7 +23,6 @@ export async function searchUniversities(
     where: {
       OR: [
         { name: { contains: lowerQuery } },
-        { domain: { contains: lowerQuery } },
       ],
     },
   });

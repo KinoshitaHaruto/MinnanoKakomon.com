@@ -13,24 +13,17 @@ async function main() {
     const universitiesLines = universitiesData.split('\n').slice(1).filter(Boolean)
 
     for (const line of universitiesLines) {
-        const [name, domain, prefecture] = line.trim().split(',')
+        const [name, prefecture] = line.trim().split(',')
         await prisma.university.upsert({
-            where: { id: name }, // Using name as ID workaround or we need to findFirst. Schema has CUID.
-            // Wait, schema uses CUID. We need to find by name if we want idempotency avoiding duplicates by name.
-            // But we don't have a unique constraint on name in schema (probably). 
-            // Let's use findFirst to check existence.
-            // Actually simpler: just use create for now if clean, but prompt asked for upsert/idempotency.
-            // Let's try to find first.
-            update: { domain, prefecture },
-            create: { name, domain, prefecture },
+            where: { id: name },
+            update: { prefecture },
+            create: { name, prefecture },
         }).catch(async () => {
-            // Fallback if id is not name. We can't use upsert effectively on non-unique non-id field without unique index.
-            // Let's use findFirst -> update or create.
             const existing = await prisma.university.findFirst({ where: { name } })
             if (existing) {
-                return prisma.university.update({ where: { id: existing.id }, data: { domain, prefecture } })
+                return prisma.university.update({ where: { id: existing.id }, data: { prefecture } })
             }
-            return prisma.university.create({ data: { name, domain, prefecture } })
+            return prisma.university.create({ data: { name, prefecture } })
         })
     }
 
